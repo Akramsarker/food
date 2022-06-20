@@ -2,7 +2,6 @@
 const showMenu = (toggleId, navId) =>{
     const toggle = document.getElementById(toggleId),
     nav = document.getElementById(navId)
-    
     // Validate that variables exist
     if(toggle && nav){
         toggle.addEventListener('click', ()=>{
@@ -97,7 +96,7 @@ const sr = ScrollReveal({
     reset: true
 });
 
-sr.reveal(`.home__data, .home__img,
+sr.reveal(`.home__data, .home__img, .about-items,info-img,
             .about__data, .about__img,
             .services__content, .menu__content,
             .app__data, .app__img,
@@ -105,3 +104,34 @@ sr.reveal(`.home__data, .home__img,
             .footer__content`, {
     interval: 200
 })
+
+// Footer section
+const footerContainer = document.querySelector('#footer-container');
+
+function footerSectionShowing() {
+  let elementBox = body.getBoundingClientRect();
+  if ((elementBox.bottom - window.innerHeight + window.pageYOffset - 10) < window.pageYOffset) {
+    footerContainer.style.display = `flex`;
+    console.log('yep');
+  }
+  if ((elementBox.bottom - window.innerHeight + window.pageYOffset - 200) > window.pageYOffset) {
+    footerContainer.style.display = `none`;
+  }
+}
+
+document.addEventListener("scroll", footerSectionShowing);
+document.addEventListener("scroll", aboutMeSection);
+document.addEventListener("scroll", projectTitleAnimation);
+
+// Project section scrolling animation
+window.addEventListener("scroll", function () {
+  let elementBox = projectSection.getBoundingClientRect();
+  let mainDistance = elementBox.bottom - window.innerHeight;
+  // console.log(mainDistance / 400 + 1.3);
+  projectSection.style.opacity = mainDistance / 400 + 1.2;
+  if (-mainDistance / 4 >= 0) {
+    projectSection.style.transform = `translate3d(0, ${mainDistance / 4}px, 0)`;
+  } else {
+    projectSection.style.transform = `translate3d(0, 0px, 0)`;
+  }
+});
